@@ -1,0 +1,16 @@
+configVersion: v1
+contexts:
+  - name: betteruptime
+    context:
+      api: betteruptime
+      user: accesstoken
+      organisation: example
+current-context: betteruptime
+apis:
+  - name: betteruptime
+    api:
+      url: https://betteruptime.com
+users:
+  - name: accesstoken
+    user:
+      token: 1234
