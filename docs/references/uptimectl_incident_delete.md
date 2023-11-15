@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:18:54+01:00
+date: 2023-11-15T01:47:17+01:00
 title: "uptimectl incident delete"
 displayName: "incident delete"
 slug: uptimectl_incident_delete
 url: /docs/references/uptimectl/uptimectl_incident_delete/
 description: ""
 lead: ""
-weight: 750
+weight: 749
 toc: true
 ---
 ## uptimectl incident delete

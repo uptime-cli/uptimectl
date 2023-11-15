@@ -21,8 +21,6 @@ var getCmd = &cobra.Command{
 	Aliases: []string{"g", "list", "ls"},
 	Args:    cobra.MaximumNArgs(10),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// organisation := contextmanager.Organisation()
-		// clusters, err := platformapi.Client().GetClustersByOrg(organisation)
 		client := betteruptime.NewClient()
 
 		statusPages := []betteruptime.StatusPage{}

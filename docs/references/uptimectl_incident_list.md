@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:18:54+01:00
+date: 2023-11-15T01:47:17+01:00
 title: "uptimectl incident list"
 displayName: "incident list"
 slug: uptimectl_incident_list
 url: /docs/references/uptimectl/uptimectl_incident_list/
 description: ""
 lead: ""
-weight: 749
+weight: 748
 toc: true
 ---
 ## uptimectl incident list

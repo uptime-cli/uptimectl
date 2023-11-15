@@ -16,8 +16,6 @@ var getResourcesCmd = &cobra.Command{
 	Aliases: []string{},
 	Args:    cobra.MaximumNArgs(10),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// organisation := contextmanager.Organisation()
-		// clusters, err := platformapi.Client().GetClustersByOrg(organisation)
 		client := betteruptime.NewClient()
 
 		statusPageResources := []betteruptime.StatusPageResource{}

@@ -27,10 +27,8 @@ var getCmd = &cobra.Command{
 	Use:     "list",
 	Short:   "Get a list of incidents",
 	Aliases: []string{"g", "get", "ls"},
-	Args:    cobra.NoArgs, // TODO: allow to filter get cmd
+	Args:    cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// organisation := contextmanager.Organisation()
-		// clusters, err := platformapi.Client().GetClustersByOrg(organisation)
 		client := betteruptime.NewClient()
 		incidents, err := client.ListIncidents(showAll, showDays, showMax)
 		if err != nil {

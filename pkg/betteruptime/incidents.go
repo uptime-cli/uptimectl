@@ -1,6 +1,7 @@
 package betteruptime
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"time"
@@ -70,6 +71,32 @@ func (c *client) DeleteIncident(incidentID string) error {
 		return fmt.Errorf("incorrect status response from api")
 	}
 	return nil
+}
+
+func (c *client) AcknowledgeIncident(ctx context.Context, incidentID, acknowledgedBy string) error {
+	endpoint := fmt.Sprintf("%s/%s/%s/acknowledge", contextmanager.APIEndpoint(), incidentsEndpoint, incidentID)
+
+	resp, err := c.rest.R().
+		SetContext(ctx).
+		SetBody(Acknowledge{
+			AcknowledgedBy: acknowledgedBy,
+		}).
+		Post(endpoint)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode() == http.StatusNotFound {
+		return fmt.Errorf("incident not found")
+	}
+
+	if resp.StatusCode() != http.StatusNoContent {
+		return fmt.Errorf("incorrect status response from api")
+	}
+	return nil
+}
+
+type Acknowledge struct {
+	AcknowledgedBy string `json:"acknowledged_by"`
 }
 
 type ListIncidentResponse struct {

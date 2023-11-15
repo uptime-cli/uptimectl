@@ -18,10 +18,8 @@ var getCmd = &cobra.Command{
 	Use:     "get",
 	Short:   "Get a list of monitor groups",
 	Aliases: []string{"g", "list", "ls"},
-	Args:    cobra.NoArgs, // TODO: allow to filter get cmd
+	Args:    cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// organisation := contextmanager.Organisation()
-		// clusters, err := platformapi.Client().GetClustersByOrg(organisation)
 		client := betteruptime.NewClient()
 		monitorGroups, err := client.ListMonitoringGroups()
 		if err != nil {
