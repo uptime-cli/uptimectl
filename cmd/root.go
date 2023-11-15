@@ -19,7 +19,7 @@ import (
 )
 
 // rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
+var RootCmd = &cobra.Command{
 	Use:   "uptimectl",
 	Short: "A command-line interface for working with Better Uptime",
 }
@@ -27,7 +27,7 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
+	if err := RootCmd.Execute(); err != nil {
 		switch err {
 		case authmanager.ErrNoLogin:
 			fallthrough
@@ -41,13 +41,13 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(auth.AuthCmd)
-	rootCmd.AddCommand(incidents.IncidentsCmd)
-	rootCmd.AddCommand(monitorgroups.MonitorGroupsCmd)
-	rootCmd.AddCommand(statuspages.StatusPagesCmd)
-	rootCmd.AddCommand(config.ConfigCmd)
-	rootCmd.AddCommand(version.VersionCmd)
-	rootCmd.AddCommand(oncall.OncallCmd)
-	rootCmd.AddCommand(monitors.MonitorsCmd)
+	RootCmd.AddCommand(auth.AuthCmd)
+	RootCmd.AddCommand(incidents.IncidentsCmd)
+	RootCmd.AddCommand(monitorgroups.MonitorGroupsCmd)
+	RootCmd.AddCommand(statuspages.StatusPagesCmd)
+	RootCmd.AddCommand(config.ConfigCmd)
+	RootCmd.AddCommand(version.VersionCmd)
+	RootCmd.AddCommand(oncall.OncallCmd)
+	RootCmd.AddCommand(monitors.MonitorsCmd)
 	cobra.OnInitialize(contextmanager.Init)
 }

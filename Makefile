@@ -41,7 +41,10 @@ fmt:
 docker:
 	docker build -t ${IMAGE}:dev .
 
+docs:
+	go run tools/docs.go
+
 clean:
 	-rm -f bin/${BINARY}-* bin/${BINARY}
 
-.PHONY: link linux darwin windows test fmt clean
+.PHONY: link linux darwin windows test fmt clean docs
