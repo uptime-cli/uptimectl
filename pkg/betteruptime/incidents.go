@@ -95,12 +95,12 @@ func (c *client) AcknowledgeIncident(ctx context.Context, incidentID, acknowledg
 	return nil
 }
 
-func (c *client) ResolveIncident(incidentID string, acknowledgedBy string) error {
+func (c *client) ResolveIncident(incidentID string, resolvedBy string) error {
 	endpoint := fmt.Sprintf("%s/%s/%s/resolve", contextmanager.APIEndpoint(), incidentsEndpoint, incidentID)
 
 	resp, err := c.rest.R().
-		SetBody(Acknowledge{
-			AcknowledgedBy: acknowledgedBy,
+		SetBody(Resolve{
+			ResolvedBy: resolvedBy,
 		}).
 		Post(endpoint)
 	if err != nil {
@@ -114,6 +114,10 @@ func (c *client) ResolveIncident(incidentID string, acknowledgedBy string) error
 		return fmt.Errorf("incorrect status response from api")
 	}
 	return nil
+}
+
+type Resolve struct {
+	ResolvedBy string `json:"resolved_by"`
 }
 
 type Acknowledge struct {

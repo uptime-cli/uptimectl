@@ -6,7 +6,11 @@ import (
 	"github.com/uptime-cli/uptimectl/pkg/betteruptime"
 )
 
-// deleteCmd represents the get command
+var (
+	resolvedBy string
+)
+
+// resolveCmd represents the get command
 var resolveCmd = &cobra.Command{
 	Use:     "resolve",
 	Short:   "Resolve an incident",
@@ -16,7 +20,7 @@ var resolveCmd = &cobra.Command{
 		client := betteruptime.NewClient()
 
 		for _, incidentID := range args {
-			err := client.ResolveIncident(incidentID, acknowledgedBy)
+			err := client.ResolveIncident(incidentID, resolvedBy)
 			if err != nil {
 				return err
 			}
@@ -27,5 +31,5 @@ var resolveCmd = &cobra.Command{
 
 func init() {
 	IncidentsCmd.AddCommand(resolveCmd)
-	resolveCmd.Flags().StringVar(&acknowledgedBy, "acknowledged-by", "uptimectl", "User e-mail or a custom identifier of the entity that acknowledged the incident")
+	resolveCmd.Flags().StringVar(&resolvedBy, "resolved-by", "uptimectl", "User e-mail or a custom identifier of the entity that resolved the incident")
 }
