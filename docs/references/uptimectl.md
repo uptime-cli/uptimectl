@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl"
 displayName: "uptimectl"
 slug: uptimectl
 url: /docs/references/uptimectl/uptimectl/
 description: ""
 lead: ""
-weight: 731
+weight: 730
 toc: true
 ---
 ## uptimectl

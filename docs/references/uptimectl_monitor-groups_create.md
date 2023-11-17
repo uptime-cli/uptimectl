@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl monitor-groups create"
 displayName: "monitor-groups create"
 slug: uptimectl_monitor-groups_create
 url: /docs/references/uptimectl/uptimectl_monitor-groups_create/
 description: ""
 lead: ""
-weight: 746
+weight: 745
 toc: true
 ---
 ## uptimectl monitor-groups create

@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl monitor-groups get"
 displayName: "monitor-groups get"
 slug: uptimectl_monitor-groups_get
 url: /docs/references/uptimectl/uptimectl_monitor-groups_get/
 description: ""
 lead: ""
-weight: 744
+weight: 743
 toc: true
 ---
 ## uptimectl monitor-groups get
