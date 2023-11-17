@@ -95,6 +95,27 @@ func (c *client) AcknowledgeIncident(ctx context.Context, incidentID, acknowledg
 	return nil
 }
 
+func (c *client) ResolveIncident(incidentID string, acknowledgedBy string) error {
+	endpoint := fmt.Sprintf("%s/%s/%s/resolve", contextmanager.APIEndpoint(), incidentsEndpoint, incidentID)
+
+	resp, err := c.rest.R().
+		SetBody(Acknowledge{
+			AcknowledgedBy: acknowledgedBy,
+		}).
+		Post(endpoint)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode() == http.StatusNotFound {
+		return fmt.Errorf("incident not found")
+	}
+
+	if resp.StatusCode() != http.StatusOK {
+		return fmt.Errorf("incorrect status response from api")
+	}
+	return nil
+}
+
 type Acknowledge struct {
 	AcknowledgedBy string `json:"acknowledged_by"`
 }
