@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
+	"regexp"
 	"time"
 
 	"github.com/uptime-cli/uptimectl/pkg/contextmanager"
@@ -11,7 +13,30 @@ import (
 
 var (
 	incidentsEndpoint = "/api/v2/incidents"
+	incidentIDRegex   = regexp.MustCompile(`incidents/(\d*)[/]?`)
+	numericCheckRegex = regexp.MustCompile(`^[0-9]+$`)
 )
+
+// Extracts a betteruptime incident ID from the URL.
+// If an incidentID is provided (and not a URL), it returns that without any further processing
+func IncidentIDFromURL(incidentStr string) (string, error) {
+	// Check if passed-in incidentStr is entirely numeric, if so, assume it's an incidentID and return it
+	if numericCheckRegex.MatchString(incidentStr) {
+		return incidentStr, nil
+	}
+
+	incidentURL, err := url.Parse(incidentStr)
+	if err != nil {
+		return "", err
+	}
+
+	matches := incidentIDRegex.FindStringSubmatch(incidentURL.Path)
+	if len(matches) != 2 {
+		return "", fmt.Errorf("invalid incident URL: %s", incidentURL)
+	}
+
+	return matches[1], nil
+}
 
 func (c *client) ListIncidents(showResolved bool, daysInPast int, showMax int) ([]Incident, error) {
 	incidents := []Incident{}

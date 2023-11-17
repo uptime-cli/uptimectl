@@ -19,8 +19,13 @@ var resolveCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		client := betteruptime.NewClient()
 
-		for _, incidentID := range args {
-			err := client.ResolveIncident(incidentID, resolvedBy)
+		for _, possibleID := range args {
+			incidentID, err := betteruptime.IncidentIDFromURL(possibleID)
+			if err != nil {
+				return err
+			}
+
+			err = client.ResolveIncident(incidentID, resolvedBy)
 			if err != nil {
 				return err
 			}

@@ -28,7 +28,7 @@ var acknowledgeCmd = &cobra.Command{
 				return err
 			}
 			for _, incident := range activeIncidents {
-				fmt.Printf("acknowleding incident %s (%s)\n", incident.Attributes.Name, incident.Id)
+				fmt.Printf("acknowledging incident %s (%s)\n", incident.Attributes.Name, incident.Id)
 				err := client.AcknowledgeIncident(cmd.Context(), incident.Id, acknowledgedBy)
 				if err != nil {
 					return err
@@ -37,8 +37,13 @@ var acknowledgeCmd = &cobra.Command{
 			return nil
 		}
 
-		for _, incidentID := range args {
-			err := client.AcknowledgeIncident(cmd.Context(), incidentID, acknowledgedBy)
+		for _, possibleID := range args {
+			incidentID, err := betteruptime.IncidentIDFromURL(possibleID)
+			if err != nil {
+				return err
+			}
+
+			err = client.AcknowledgeIncident(cmd.Context(), incidentID, acknowledgedBy)
 			if err != nil {
 				return err
 			}
