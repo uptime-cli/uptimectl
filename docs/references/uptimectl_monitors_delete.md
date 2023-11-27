@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl monitors delete"
 displayName: "monitors delete"
 slug: uptimectl_monitors_delete
 url: /docs/references/uptimectl/uptimectl_monitors_delete/
 description: ""
 lead: ""
-weight: 741
+weight: 740
 toc: true
 ---
 ## uptimectl monitors delete

@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl monitors get"
 displayName: "monitors get"
 slug: uptimectl_monitors_get
 url: /docs/references/uptimectl/uptimectl_monitors_get/
 description: ""
 lead: ""
-weight: 740
+weight: 739
 toc: true
 ---
 ## uptimectl monitors get

@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl status-pages"
 displayName: "status-pages"
 slug: uptimectl_status-pages
 url: /docs/references/uptimectl/uptimectl_status-pages/
 description: ""
 lead: ""
-weight: 733
+weight: 732
 toc: true
 ---
 ## uptimectl status-pages

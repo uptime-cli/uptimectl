@@ -1,12 +1,12 @@
 ---
-date: 2023-11-15T01:47:17+01:00
+date: 2023-11-17T13:00:50-05:00
 title: "uptimectl monitors create"
 displayName: "monitors create"
 slug: uptimectl_monitors_create
 url: /docs/references/uptimectl/uptimectl_monitors_create/
 description: ""
 lead: ""
-weight: 742
+weight: 741
 toc: true
 ---
 ## uptimectl monitors create
