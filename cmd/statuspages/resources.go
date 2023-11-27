@@ -42,7 +42,7 @@ var getResourcesCmd = &cobra.Command{
 		if noHeader {
 			table.Print(nil, body)
 		} else {
-			table.Print([]string{"ID", "Name", "Show History", "Explaination", "Type", "Widget"}, body)
+			table.Print([]string{"ID", "Name", "Show History", "Explanation", "Type", "Widget"}, body)
 		}
 		return nil
 	},
