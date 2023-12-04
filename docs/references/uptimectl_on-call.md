@@ -1,12 +1,12 @@
 ---
-date: 2023-11-17T13:00:50-05:00
+date: 2023-12-04T20:57:39+01:00
 title: "uptimectl on-call"
 displayName: "on-call"
 slug: uptimectl_on-call
 url: /docs/references/uptimectl/uptimectl_on-call/
 description: ""
 lead: ""
-weight: 737
+weight: 735
 toc: true
 ---
 ## uptimectl on-call
