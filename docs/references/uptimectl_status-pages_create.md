@@ -1,12 +1,12 @@
 ---
-date: 2023-11-17T13:00:50-05:00
+date: 2023-12-04T20:57:39+01:00
 title: "uptimectl status-pages create"
 displayName: "status-pages create"
 slug: uptimectl_status-pages_create
 url: /docs/references/uptimectl/uptimectl_status-pages_create/
 description: ""
 lead: ""
-weight: 736
+weight: 734
 toc: true
 ---
 ## uptimectl status-pages create

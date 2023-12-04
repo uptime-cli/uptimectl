@@ -102,10 +102,64 @@ func (c *client) ListMonitors() ([]Monitor, error) {
 	return monitors, nil
 }
 
+func (c *client) PauseMonitor(id string) error {
+	result := GetMonitorResponse{}
+
+	endpoint := fmt.Sprintf("%s/%s/%s", contextmanager.APIEndpoint(), monitorEndpoint, id)
+
+	updateRequest := UpdateMonitorRequest{
+		Paused: true,
+	}
+
+	resp, err := c.rest.R().
+		SetResult(&result).
+		SetBody(updateRequest).
+		Patch(endpoint)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode() != http.StatusOK {
+		return fmt.Errorf("incorrect status response")
+	}
+
+	fmt.Printf("monitor \"%s\" paused\n", id)
+
+	return nil
+}
+
+func (c *client) UnpauseMonitor(id string) error {
+	result := GetMonitorResponse{}
+
+	endpoint := fmt.Sprintf("%s/%s/%s", contextmanager.APIEndpoint(), monitorEndpoint, id)
+
+	updateRequest := UpdateMonitorRequest{
+		Paused: false,
+	}
+
+	resp, err := c.rest.R().
+		SetResult(&result).
+		SetBody(updateRequest).
+		Patch(endpoint)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode() != http.StatusOK {
+		return fmt.Errorf("incorrect status response")
+	}
+
+	fmt.Printf("monitor \"%s\" unpaused\n", id)
+
+	return nil
+}
+
 type CreateMonitorRequest struct {
 	Name      string `json:"name"`
 	Paused    bool   `json:"paused"`
 	SortIndex *int   `json:"sort_index"`
+}
+
+type UpdateMonitorRequest struct {
+	Paused bool `json:"paused"`
 }
 
 type ListMonitorResponse struct {
