@@ -26,7 +26,7 @@ var resolveCmd = &cobra.Command{
 			}
 
 			err = client.ResolveIncident(incidentID, resolvedBy)
-			if err != nil {
+			if err != nil && err != betteruptime.ErrIncidentAlreadyResolved {
 				return err
 			}
 		}

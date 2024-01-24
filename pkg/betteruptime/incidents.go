@@ -2,6 +2,7 @@ package betteruptime
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -15,6 +16,13 @@ var (
 	incidentsEndpoint = "/api/v2/incidents"
 	incidentIDRegex   = regexp.MustCompile(`incidents/(\d*)[/]?`)
 	numericCheckRegex = regexp.MustCompile(`^[0-9]+$`)
+)
+
+var (
+	ErrIncidentAlreadyAcknowledged = errors.New("incident is already acknowledged")
+	ErrIncidentAlreadyResolved     = errors.New("incident is already resolved")
+	ErrIncidentNotFound            = errors.New("incident not found")
+	ErrUnexpectedStatusCodeFromAPI = errors.New("unexpected status received from better-uptime API")
 )
 
 // Extracts a betteruptime incident ID from the URL.
@@ -88,14 +96,15 @@ func (c *client) DeleteIncident(incidentID string) error {
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode() == http.StatusNotFound {
-		return fmt.Errorf("incident not found")
-	}
 
-	if resp.StatusCode() != http.StatusNoContent {
-		return fmt.Errorf("incorrect status response from api")
+	switch resp.StatusCode() {
+	case http.StatusNotFound:
+		return ErrIncidentNotFound
+	case http.StatusNoContent:
+		return nil
+	default:
+		return ErrUnexpectedStatusCodeFromAPI
 	}
-	return nil
 }
 
 func (c *client) AcknowledgeIncident(ctx context.Context, incidentID, acknowledgedBy string) error {
@@ -110,14 +119,17 @@ func (c *client) AcknowledgeIncident(ctx context.Context, incidentID, acknowledg
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode() == http.StatusNotFound {
-		return fmt.Errorf("incident not found")
-	}
 
-	if resp.StatusCode() != http.StatusNoContent {
-		return fmt.Errorf("incorrect status response from api")
+	switch resp.StatusCode() {
+	case http.StatusNotFound:
+		return ErrIncidentNotFound
+	case http.StatusConflict:
+		return ErrIncidentAlreadyAcknowledged
+	case http.StatusOK:
+		return nil // incident resolved successfully
+	default:
+		return ErrUnexpectedStatusCodeFromAPI
 	}
-	return nil
 }
 
 func (c *client) ResolveIncident(incidentID string, resolvedBy string) error {
@@ -131,14 +143,17 @@ func (c *client) ResolveIncident(incidentID string, resolvedBy string) error {
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode() == http.StatusNotFound {
-		return fmt.Errorf("incident not found")
-	}
 
-	if resp.StatusCode() != http.StatusOK {
-		return fmt.Errorf("incorrect status response from api")
+	switch resp.StatusCode() {
+	case http.StatusNotFound:
+		return ErrIncidentNotFound
+	case http.StatusConflict:
+		return ErrIncidentAlreadyResolved
+	case http.StatusOK:
+		return nil // incident resolved successfully
+	default:
+		return ErrUnexpectedStatusCodeFromAPI
 	}
-	return nil
 }
 
 type Resolve struct {

@@ -44,7 +44,7 @@ var acknowledgeCmd = &cobra.Command{
 			}
 
 			err = client.AcknowledgeIncident(cmd.Context(), incidentID, acknowledgedBy)
-			if err != nil {
+			if err != nil && err != betteruptime.ErrIncidentAlreadyAcknowledged {
 				return err
 			}
 		}
