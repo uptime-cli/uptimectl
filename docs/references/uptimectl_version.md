@@ -1,12 +1,12 @@
 ---
-date: 2023-11-17T13:00:50-05:00
+date: 2023-12-04T20:57:39+01:00
 title: "uptimectl version"
 displayName: "version"
 slug: uptimectl_version
 url: /docs/references/uptimectl/uptimectl_version/
 description: ""
 lead: ""
-weight: 731
+weight: 729
 toc: true
 ---
 ## uptimectl version

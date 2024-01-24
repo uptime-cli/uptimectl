@@ -1,0 +1,5 @@
+# Unpause a monitor
+uptimectl monitors unpause 1234567
+
+# Unpause multiple monitors
+uptimectl monitors unpause 1234567 2345678 3456789

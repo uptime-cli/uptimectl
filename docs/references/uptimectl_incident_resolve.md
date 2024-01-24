@@ -1,5 +1,5 @@
 ---
-date: 2023-11-17T13:00:50-05:00
+date: 2023-12-04T20:57:39+01:00
 title: "uptimectl incident resolve"
 displayName: "incident resolve"
 slug: uptimectl_incident_resolve
@@ -20,8 +20,8 @@ uptimectl incident resolve [flags]
 ### Options
 
 ```
-      --acknowledged-by string   User e-mail or a custom identifier of the entity that acknowledged the incident (default "uptimectl")
-  -h, --help                     help for resolve
+  -h, --help                 help for resolve
+      --resolved-by string   User e-mail or a custom identifier of the entity that resolved the incident (default "uptimectl")
 ```
 
 ### SEE ALSO

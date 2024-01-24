@@ -1,5 +1,5 @@
 ---
-date: 2023-11-17T13:00:50-05:00
+date: 2023-12-04T20:57:39+01:00
 title: "uptimectl monitor-groups create"
 displayName: "monitor-groups create"
 slug: uptimectl_monitor-groups_create
