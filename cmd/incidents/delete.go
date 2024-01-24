@@ -15,8 +15,13 @@ var deleteCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		client := betteruptime.NewClient()
 
-		for _, incidentID := range args {
-			err := client.DeleteIncident(incidentID)
+		for _, possibleID := range args {
+			incidentID, err := betteruptime.IncidentIDFromURL(possibleID)
+			if err != nil {
+				return err
+			}
+
+			err = client.DeleteIncident(incidentID)
 			if err != nil {
 				return err
 			}
