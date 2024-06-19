@@ -1,5 +1,5 @@
 ---
-date: 2023-12-04T20:57:39+01:00
+date: 2024-06-19T09:14:07+02:00
 title: "uptimectl config current-context"
 displayName: "config current-context"
 slug: uptimectl_config_current-context
