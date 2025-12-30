@@ -9,6 +9,7 @@ import (
 	"github.com/uptime-cli/uptimectl/cmd/auth"
 	"github.com/uptime-cli/uptimectl/cmd/config"
 	"github.com/uptime-cli/uptimectl/cmd/incidents"
+	"github.com/uptime-cli/uptimectl/cmd/maintenance"
 	"github.com/uptime-cli/uptimectl/cmd/monitorgroups"
 	"github.com/uptime-cli/uptimectl/cmd/monitors"
 	"github.com/uptime-cli/uptimectl/cmd/oncall"
@@ -49,5 +50,6 @@ func init() {
 	RootCmd.AddCommand(version.VersionCmd)
 	RootCmd.AddCommand(oncall.OncallCmd)
 	RootCmd.AddCommand(monitors.MonitorsCmd)
+	RootCmd.AddCommand(maintenance.MaintenanceCmd)
 	cobra.OnInitialize(contextmanager.Init)
 }

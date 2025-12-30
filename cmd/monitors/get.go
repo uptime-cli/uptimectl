@@ -1,6 +1,8 @@
 package monitors
 
 import (
+	"strings"
+
 	"github.com/spf13/cobra"
 
 	"github.com/uptime-cli/uptimectl/pkg/betteruptime"
@@ -11,6 +13,7 @@ import (
 const NoHeaderKey = "no-header"
 
 var noHeader bool
+var monitorGroups []string
 
 // getCmd represents the get command
 var getCmd = &cobra.Command{
@@ -20,10 +23,30 @@ var getCmd = &cobra.Command{
 	Args:    cobra.NoArgs, // TODO: allow to filter get cmd
 	RunE: func(cmd *cobra.Command, args []string) error {
 		client := betteruptime.NewClient()
-		monitors, err := client.ListMonitors()
-		if err != nil {
-			return err
+
+		monitors := []betteruptime.Monitor{}
+		if len(monitorGroups) > 0 {
+			for _, monitorGroup := range monitorGroups {
+				group := strings.Split(monitorGroup, ",") // support comma seperated list
+				for _, g := range group {
+					retrieved, err := client.ListMonitoringGroupMonitors(cmd.Context(), g)
+					if err != nil {
+						if err == betteruptime.ErrNotFound {
+							continue
+						}
+						return err
+					}
+					monitors = append(monitors, retrieved...)
+				}
+			}
+		} else {
+			m, err := client.ListMonitors(cmd.Context())
+			if err != nil {
+				return err
+			}
+			monitors = m
 		}
+
 		body := make([][]string, 0, len(monitors))
 		for _, item := range monitors {
 			body = append(body, []string{
@@ -47,4 +70,5 @@ func init() {
 	MonitorsCmd.AddCommand(getCmd)
 
 	getCmd.Flags().BoolVar(&noHeader, NoHeaderKey, false, "Do not print the header")
+	getCmd.Flags().StringArrayVarP(&monitorGroups, "groups", "g", []string{}, "Filter monitors by group")
 }

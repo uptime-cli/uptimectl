@@ -1,6 +1,7 @@
 package betteruptime
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"time"
@@ -83,6 +84,40 @@ func (c *client) ListMonitoringGroups() ([]MonitorGroup, error) {
 		endpoint = *result.Pagination.Next
 	}
 	return monitorGroups, nil
+}
+
+func (c *client) ListMonitoringGroupMonitors(ctx context.Context, monitorGroupId string) ([]Monitor, error) {
+	monitors := []Monitor{}
+
+	result := ListMonitorResponse{}
+	endpoint := fmt.Sprintf("%s/%s/%s/monitors", contextmanager.APIEndpoint(), monitorGroupEndpoint, monitorGroupId)
+
+	for {
+		resp, err := c.rest.R().
+			SetResult(&result).
+			Get(endpoint)
+		if err != nil {
+			return nil, err
+		}
+
+		if resp.StatusCode() != http.StatusOK {
+			return nil, fmt.Errorf("incorrect status response")
+		}
+		if resp.StatusCode() == http.StatusNotFound {
+			return nil, ErrNotFound
+		}
+
+		monitors = append(monitors, result.Data...)
+
+		if result.Pagination.Next == nil {
+			break
+		}
+		if len(monitors) > 50 {
+			break
+		}
+		endpoint = *result.Pagination.Next
+	}
+	return monitors, nil
 }
 
 type CreateMonitorGroupRequest struct {

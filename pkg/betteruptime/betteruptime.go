@@ -12,6 +12,10 @@ import (
 	versionpkg "github.com/uptime-cli/uptimectl/pkg/version"
 )
 
+var (
+	ErrNotFound = errors.New("not found")
+)
+
 type client struct {
 	rest *resty.Client
 }

@@ -16,7 +16,7 @@ var createCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		client := betteruptime.NewClient()
-		monitorGroup, err := client.CreateMonitor(args[0])
+		monitorGroup, err := client.CreateMonitor(cmd.Context(), args[0])
 		if err != nil {
 			return err
 		}
