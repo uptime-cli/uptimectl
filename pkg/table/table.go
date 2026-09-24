@@ -4,27 +4,34 @@ import (
 	"os"
 
 	"github.com/olekukonko/tablewriter"
+	"github.com/olekukonko/tablewriter/renderer"
+	"github.com/olekukonko/tablewriter/tw"
 )
 
 func Print(header []string, body [][]string) {
-	table := tablewriter.NewWriter(os.Stdout)
+	table := tablewriter.NewTable(os.Stdout,
+		tablewriter.WithRenderer(renderer.NewBlueprint(tw.Rendition{
+			Borders: tw.BorderNone,
+			Symbols: tw.NewSymbolCustom("kube").WithColumn("\t"),
+			Settings: tw.Settings{
+				Lines:      tw.LinesNone,
+				Separators: tw.Separators{BetweenColumns: tw.On},
+			},
+		})),
+		tablewriter.WithPadding(tw.PaddingNone),
+		tablewriter.WithHeaderAlignment(tw.AlignLeft),
+		tablewriter.WithRowAlignment(tw.AlignLeft),
+		tablewriter.WithHeaderAutoWrap(tw.WrapNone),
+		tablewriter.WithRowAutoWrap(tw.WrapNone),
+		tablewriter.WithHeaderAutoFormat(tw.On),
+	)
+
 	if len(header) > 0 {
-		table.SetHeader(header)
+		table.Header(header)
 	}
-	table.SetAutoWrapText(false)
-	table.SetAutoFormatHeaders(true)
-	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
-	table.SetCenterSeparator("")
-	table.SetColumnSeparator("")
-	table.SetRowSeparator("")
-	table.SetHeaderLine(false)
-	table.SetBorder(false)
-	table.SetTablePadding("\t") // pad with tabs
-	table.SetNoWhiteSpace(true)
 	if len(body) > 0 {
-		table.AppendBulk(body)
+		_ = table.Bulk(body)
 	}
 
-	table.Render()
+	_ = table.Render()
 }
